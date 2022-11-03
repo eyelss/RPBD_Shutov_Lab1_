@@ -386,7 +386,12 @@ namespace RPBD_Shutov_Lab1_
 
         private void procButton_Click(object sender, EventArgs e)
         {
-            var query = $"CALL create_own_storage('{name1.Text}', {price1.Text});";
+            string query;
+            if (_actualConfig.ToString() == "PostgreSQL")
+                query = $"CALL create_own_storage('{name1.Text}', {price1.Text});";
+            else
+                query = $"EXEC create_own_storage('{name1.Text}', {price1.Text});";
+
             var cmd = GetCommand(query);
             cmd.ExecuteNonQuery();
         }
